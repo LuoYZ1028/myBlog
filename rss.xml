@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>我的博客</title>
+        <link>http://LuoYZ1028.github.io/myBlog</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Wed, 05 Oct 2022 20:00:21 +0800</pubDate>
+        <lastBuildDate>Wed, 05 Oct 2022 20:00:21 +0800</lastBuildDate>
+        <category>risc-v</category>
+        <item>
+            <guid isPermalink="true">http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</guid>
+            <title>RISC-V单周期CPU</title>
+            <link>http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</link>
+            <category>risc-v</category>
+            <pubDate>Wed, 05 Oct 2022 20:00:21 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://luoyz1028.github.io/myBlog/2022/10/05/hello-world/</guid>
+            <title>Hello Hexo World</title>
+            <link>http://luoyz1028.github.io/myBlog/2022/10/05/hello-world/</link>
+            <pubDate>Wed, 05 Oct 2022 09:57:44 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;Welcome to &lt;a href=&#34;https://hexo.io/&#34;&gt;Hexo&lt;/a&gt; World! This is your very first post. Check &lt;a href=&#34;https://hexo.io/docs/&#34;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&#34;https://hexo.io/docs/troubleshooting.html&#34;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&#34;https://github.com/hexojs/hexo/issues&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
