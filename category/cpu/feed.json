@@ -1,6 +1,6 @@
 {
     "version": "https://jsonfeed.org/version/1",
-    "title": "我的博客",
+    "title": "我的博客 • All posts by \"cpu\" category",
     "description": "",
     "home_page_url": "http://LuoYZ1028.github.io/myBlog",
     "items": [
@@ -36,14 +36,6 @@
                 "risc-v",
                 "单周期CPU"
             ]
-        },
-        {
-            "id": "http://luoyz1028.github.io/myBlog/2022/10/05/hello-world/",
-            "url": "http://luoyz1028.github.io/myBlog/2022/10/05/hello-world/",
-            "title": "Hello Hexo World",
-            "date_published": "2022-10-05T01:57:44.858Z",
-            "content_html": "<p>Welcome to <a href=\"https://hexo.io/\">Hexo</a> World! This is your very first post. Check <a href=\"https://hexo.io/docs/\">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href=\"https://hexo.io/docs/troubleshooting.html\">troubleshooting</a> or you can ask me on <a href=\"https://github.com/hexojs/hexo/issues\">GitHub</a>.</p>\n",
-            "tags": []
         }
     ]
 }

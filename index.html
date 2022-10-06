@@ -58,7 +58,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"luoyz1028.github.io","root":"/myBlog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/myBlog/local-search.xml"};
+    var CONFIG = {"hostname":"luoyz1028.github.io","root":"/myBlog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":130,"cursorChar":"_","loop":true,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/myBlog/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -71,7 +71,11 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -185,7 +189,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="骐骥一跃，不能十步；驽马十驾，功在不舍！"></span>
+            <span id="subtitle" data-typed-text="骐骥一跃，不能十步，驽马十驾，功在不舍"></span>
           
         </div>
 
@@ -223,6 +227,146 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_self">
+          RISC-V流水线CPU（二）
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_self">
+        <div>
+          前文传送门第一章  数据冒险（续）load-use型前面三种数据冒险都能通过前递（forwarding）数据来得以解决，免除了暂停流水线的苦恼，靶特，凡事总有例外，前递并非万用药，load-use型数据冒险就难以使用前递解决，例如： 12ld x2, 0(x0)    # 从内存0地址取数放入x2addi x2, x2, 1  # x2增1 load-use，顾名思义，就是取出即用，前面ld指令紧
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-06 19:54" pubdate>
+              2022-10-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/myBlog/categories/RISC-V/" class="category-chain-item">RISC-V</a>
+  
+  
+    <span>></span>
+    
+  <a href="/myBlog/categories/RISC-V/CPU/" class="category-chain-item">CPU</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/myBlog/tags/risc-v/">#risc-v</a>
+            
+              <a href="/myBlog/tags/%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/">#流水线CPU</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" target="_self">
+          RISC-V流水线CPU（一）
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" target="_self">
+        <div>
+          写在前面CSDN相应博客页 里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读 内容摘要 将单周期中已有的分段处理思想进一步实现，通过流水线寄存器能够让指令延后一个周期进行传输来划分阶段  完成基本流水线划分后得到的是理想流水线模型，之所以谓之“理想”，是因为这个模型对于存在冲突的指令序列不能正确运行。 流水线整体框架[1]  见脚注1  解决流水线存在
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-06 10:56" pubdate>
+              2022-10-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/myBlog/categories/RISC-V/" class="category-chain-item">RISC-V</a>
+  
+  
+    <span>></span>
+    
+  <a href="/myBlog/categories/RISC-V/CPU/" class="category-chain-item">CPU</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/myBlog/tags/risc-v/">#risc-v</a>
+            
+              <a href="/myBlog/tags/%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/">#流水线CPU</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/" target="_self">
           RISC-V单周期CPU
         </a>
@@ -231,7 +375,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/" target="_self">
         <div>
-          
+          # 写在前面  CSDN 相关博客页  里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读 # 内容摘要  使用 Verilog 语言，配合 Vivado 软件进行硬件设计，并最终能生成比特流导入板子进行实际效果模拟 指令集架构基于 risc-v，32 位基础整数指令，没有特权指令或是内核态，也不存在中断操作 该部分是单周期模型，所有指令都限定在一个周期
         </div>
       </a>
 
@@ -255,8 +399,15 @@
     
       <span class="category-chain">
         
-  <a href="/myBlog/categories/Verilog/" class="category-chain-item">Verilog</a>
+  <a href="/myBlog/categories/RISC-V/" class="category-chain-item">RISC-V</a>
   
+  
+    <span>></span>
+    
+  <a href="/myBlog/categories/RISC-V/CPU/" class="category-chain-item">CPU</a>
+  
+  
+
   
 
       </span>
@@ -271,6 +422,8 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/myBlog/tags/risc-v/">#risc-v</a>
+            
+              <a href="/myBlog/tags/%E5%8D%95%E5%91%A8%E6%9C%9FCPU/">#单周期CPU</a>
             
           </div>
         
@@ -399,7 +552,37 @@
       }
       var text = subtitle.getAttribute('data-typed-text');
       
-        typing(text);
+        jQuery.ajax({
+          type: 'GET',
+          url: 'https://v1.hitokoto.cn/',
+          headers: {},
+          dataType: 'json',
+          success: function(result) {
+            var apiText;
+            if (result) {
+              var keys = 'hitokoto'.split(',');
+              if (result instanceof Array) {
+                result = result[0];
+              }
+              for (const k of keys) {
+                var value = result[k];
+                if (typeof value === 'string') {
+                  apiText = value;
+                  break;
+                } else if (value instanceof Object) {
+                  result = value;
+                }
+              }
+            }
+            apiText ? typing(apiText) : typing(text);
+          },
+          error: function(xhr, status, error) {
+            if (error) {
+              console.error('Failed to request https://v1.hitokoto.cn/:', error);
+            }
+            typing(text);
+          }
+        })
       
     })(window, document);
   </script>

@@ -4,16 +4,18 @@
   
   
   <entry>
-    <title>RISC-V单周期CPU</title>
-    <link href="/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/"/>
-    <url>/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</url>
+    <title>RISC-V流水线CPU（二）</title>
+    <link href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <url>/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="前文传送门"><a href="#前文传送门" class="headerlink" title="前文传送门"></a>前文传送门</h1><a href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/" title="RISC-V流水线CPU（一）">第一章</a><h2 id="数据冒险（续）"><a href="#数据冒险（续）" class="headerlink" title="数据冒险（续）"></a>数据冒险（续）</h2><h3 id="load-use型"><a href="#load-use型" class="headerlink" title="load-use型"></a>load-use型</h3><p>前面三种数据冒险都能通过前递（forwarding）数据来得以解决，免除了暂停流水线的苦恼，靶特，凡事总有例外，前递并非万用药，load-use型数据冒险就难以使用前递解决，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ASM">ld x2, 0(x0)    # 从内存0地址取数放入x2<br>addi x2, x2, 1  # x2增1<br></code></pre></td></tr></table></figure><p>load-use，顾名思义，就是取出即用，前面ld指令紧跟着要使用ld的目的寄存器的指令；我们分析一下时序关系，ld什么时候能取出数据？MEM阶段完成时，那么addi什么时候需要用这个数据？EXE阶段开始时；</p><p>显然，二者差了整整一个时钟周期！</p><p>除非强行破坏我们目前的严格5段流水线，在前面阶段就允许访存，否则，面对load-use数据冒险，我们只能委曲求全，插入一个空指令，或者说，让流水线暂停1个周期，然后再数据前递</p><h3 id="暂停流水线"><a href="#暂停流水线" class="headerlink" title="暂停流水线"></a>暂停流水线</h3><p>按理说，面对数据冒险，应该第一反应是想直接暂停流水线的，有冒险，那就等一等、停一停，等到它不再有冒险了，再继续流动；</p><p>这种朴素地解决方案的确存在，但没有多大的实际价值，毕竟已经掌握数据前递的我们不难看出，如果一遇到数据冒险就暂停流水线，那对于指令吞吐量而言将是多大的损失啊！这种“鸵鸟”策略在本设计中并不可取。</p><p>但是对于上述的load-use型冒险，在不破坏严格5段流水分工的前提下，这种暂停手段就成了我们<strong>折中</strong>的策略</p><p>显然我们需要一个<strong>异步</strong>检测信号，这个信号要能够使得流水寄存器暂停一个周期——具体而言就是让发生load-use的那一周期中，让<strong>IF</strong>和<strong>ID</strong>流水寄存器当前周期的输出和下一个周期的输出保持一致，让<strong>EXE</strong>流水寄存器下周期输出清空，这样后续指令就相当于被<strong>卡</strong>了一个周期，谓之暂停。</p><h2 id="控制冒险"><a href="#控制冒险" class="headerlink" title="控制冒险"></a>控制冒险</h2><p>也叫做“分支冒险”，我们认为：程序的<strong>控制流</strong>就像一条工业生产线，不断地有新指令流入，旧指令流出，这是指令执行序列的常态，但是生产向也并非总是按照固定的顺序流动的，最典型的<em>if-else</em>语句，就可能产生分支，令控制流转到另一个特定的位置；</p><p><em>if-else</em>语句无疑是编程语言的一大家，但<em>if-else</em>对流水线并不友好，理由是显而易见的：</p><ul><li>跳转指令，除了无条件跳转，都只有在执行到<strong>EXE</strong>阶段时，才能确定是否真的要跳转</li><li>如果真的需要跳转，那么我们目前的流水线就可能已流入两条错误的指令（分别处于IF和ID阶段），还需要考虑如何清空这两条错误指令引发的<strong>蝴蝶效应</strong></li><li>此外，如何选择</li></ul>]]></content>
     
     
     <categories>
       
-      <category>Verilog</category>
+      <category>RISC-V</category>
+      
+      <category>CPU</category>
       
     </categories>
     
@@ -21,6 +23,66 @@
     <tags>
       
       <tag>risc-v</tag>
+      
+      <tag>流水线CPU</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>RISC-V流水线CPU（一）</title>
+    <link href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/"/>
+    <url>/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/</url>
+    
+    <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p><a href="https://blog.csdn.net/paticita/article/details/119570971">CSDN相应博客页</a></p><p>里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读</p><h1 id="内容摘要"><a href="#内容摘要" class="headerlink" title="内容摘要"></a>内容摘要</h1><blockquote><p>将单周期中已有的分段处理思想进一步实现，通过<strong>流水线寄存器</strong>能够让指令延后一个周期进行传输来划分阶段</p></blockquote><p>完成基本流水线划分后得到的是理想流水线模型，之所以谓之“理想”，是因为这个模型对于存在冲突的指令序列不能正确运行。</p><h1 id="流水线整体框架"><a href="#流水线整体框架" class="headerlink" title="流水线整体框架"></a>流水线整体框架</h1><img src="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%84.png" class="" title="流水线结构"><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="有一处纰漏：“IF/EXE”应改为“ID/EXE”">[1]</span></a></sup><blockquote><p>见脚注1</p></blockquote><h1 id="解决流水线存在的冲突"><a href="#解决流水线存在的冲突" class="headerlink" title="解决流水线存在的冲突"></a>解决流水线存在的冲突</h1><h2 id="数据冒险"><a href="#数据冒险" class="headerlink" title="数据冒险"></a>数据冒险</h2><blockquote><p>数据冒险指的是前后两条指令存在<strong>数据相关</strong></p></blockquote><p>即前一条指令产生的数据，将被后一条指令使用，可能是以下情形之一：</p><img src="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/%E6%95%B0%E6%8D%AE%E5%86%B2%E7%AA%81.png" class="" title="数据冲突"><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="同色表示两条指令之间存在该阶段的数据冲突">[2]</span></a></sup><blockquote><p>见脚注2</p></blockquote><p>我们来分情况讨论一下：</p><h3 id="A类数据冒险"><a href="#A类数据冒险" class="headerlink" title="A类数据冒险"></a>A类数据冒险</h3><p>前一条指令的<strong>访存</strong>阶段和后一条的<strong>执行</strong>阶段冲突，什么意思呢？例如</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ASM">li x2, 1        # 把1赋给x2寄存器<br>add x2, x2, x2  # x2寄存器自己加自己<br></code></pre></td></tr></table></figure><p>此刻，当指令 $li\ x2, 1$ 执行到<strong>MEM</strong>阶段时，后一条指令 $add\ x2,\ x2,\ x2$ 进入<strong>EXE</strong>阶段，发现需要取寄存器x2的值，但如果真的就简单地访问取数，就出现了不一致现象(<em>流水线和单周期行为不一致</em>)，因为我们需要的是更新后x2&#x3D;1的值，但在流水线中，只有当第一条指令转入WB阶段时才会更新x2为1，此前其一直为0；</p><p>所以，我们需要设计<strong>前递单元</strong>(forwarding unit)和<strong>数据冲突检测单元</strong>(hazard detection unit)</p><ul><li>前递：将<em>尚未写回</em>的数据<em>提前</em>送到前面的单元里，以保证数据的有效性</li><li>数据冲突检测：每个时钟周期都对CPU执行的指令进行检测，若发现出现数据冲突，则拉高相应的信号forward_a，使得<em>流水线寄存器</em>得知<em>是否该接收</em>前递单元的数据</li></ul><p>在A类情形中，我们需要将<strong>MEM</strong>阶段的ALU运算结果<strong>前递</strong>到<em>ID&#x2F;EXE流水线寄存器</em>内，这样下一个周期中，后一条指令的ALU操作数就是更新过的结果，而非直接取出的数值</p><h3 id="B类数据冒险"><a href="#B类数据冒险" class="headerlink" title="B类数据冒险"></a>B类数据冒险</h3><p>涉及连续的3条指令，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ASM">li x2, 1    #把1赋给x2寄存器<br>xor x3, x3, x3  #清空x3寄存器<br>add x2, x2, x2  #x2寄存器自己加自己<br></code></pre></td></tr></table></figure><p>和A类的不同在于发生冲突的两条指令间<strong>夹着</strong>一条指令，即冲突发生在第1条指令的<strong>WB</strong>阶段和第3条指令的<strong>EXE</strong>阶段</p><p>仿照A类的处理方式，将WB阶段的数据前递给ID&#x2F;EXE流水寄存器即可，同样，处理信号需要在<strong>数据冲突检测单元</strong>(hazard detection unit)中确定值，可以令设一个新的前递信号forward_b</p><blockquote><p>思考：当同时存在A，B类型时应该怎么办？</p></blockquote><p>例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ASM">li x2, 1        # 把1赋给x2寄存器<br>add x2, x2, x2  # x2寄存器自己加自己<br>addi x3, x2, 0  # 同时存在AB两类冲突<br></code></pre></td></tr></table></figure><p>显然我们需要的是最新的数据（<em>newest first原理</em>），即我们可以得出结论：A类数据冲突优先级比B类更高</p><h3 id="C类数据冒险"><a href="#C类数据冒险" class="headerlink" title="C类数据冒险"></a>C类数据冒险</h3><p>这回是发生冲突的两条指令间夹了两条指令，例如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ASM">li x2, 1        # 把1赋给x2寄存器<br>add x1, x1, x1  # x1寄存器自己加自己<br>addi x3, x4, 0<br>addi x2, x2, 1  # C类数据冒险<br></code></pre></td></tr></table></figure><p>你可能会问：明明第1条指令已经到WB阶段了，为什么还会发生冲突呢？</p><p>答案是：为了提升主频，我们的寄存器堆采用的是在同一个时钟周期内，上升沿写入，下降沿读取，然而流水线寄存器的流入值也是在上升沿……</p><p><strong>说人话就是</strong>，在同一个周期里，寄存器堆虽然能读出新值，但旧值已经流入ID&#x2F;EXE流水寄存器里了，因此还是需要前递单元操作一下的</p><h3 id="load-use型数据冒险"><a href="#load-use型数据冒险" class="headerlink" title="load-use型数据冒险"></a>load-use型数据冒险</h3><p>请见后续章节</p><a href="/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/" title="RISC-V流水线CPU（二）">第二章</a><hr><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>有一处纰漏：“IF&#x2F;EXE”应改为“ID&#x2F;EXE”<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>同色表示两条指令之间存在该阶段的数据冲突<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    <categories>
+      
+      <category>RISC-V</category>
+      
+      <category>CPU</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>risc-v</tag>
+      
+      <tag>流水线CPU</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>RISC-V单周期CPU</title>
+    <link href="/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/"/>
+    <url>/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</url>
+    
+    <content type="html"><![CDATA[<h1 id="写在前面"><a class="markdownIt-Anchor" href="#写在前面">#</a> 写在前面</h1><blockquote><p><a href="https://blog.csdn.net/paticita/article/details/119508499">CSDN 相关博客页</a></p></blockquote><p>里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读</p><h1 id="内容摘要"><a class="markdownIt-Anchor" href="#内容摘要">#</a> 内容摘要</h1><ul><li>使用 Verilog 语言，配合 Vivado 软件进行硬件设计，并最终能生成比特流导入板子进行实际效果模拟</li><li>指令集架构基于 risc-v，32 位基础整数指令，没有特权指令或是内核态，也不存在中断操作</li><li>该部分是单周期模型，所有指令都限定在一个周期内进行 5 个阶段：取指<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 译码<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 执行<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 访存<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\to</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 写回，因此整体时延超大，主频难以提升<ul><li>但这并不意味单周期模型就是废物，相反，单周期模型能够证明我们设计的合理性</li><li>此外单周期模型提供 5 段流水的思想，能够大幅度减少流水线 CPU 的设计难度</li><li>忽视单周期模型的设计很可能会导致流水线的 Bug 多如牛毛，不过单周期确实没有多大的实际应用意义</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>RISC-V</category>
+      
+      <category>CPU</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>risc-v</tag>
+      
+      <tag>单周期CPU</tag>
       
     </tags>
     

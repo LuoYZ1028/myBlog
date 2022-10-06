@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://LuoYZ1028.github.io/myBlog</id>
-    <title>我的博客 • Posts by &#34;risc-v&#34; tag</title>
+    <title>我的博客 • Posts by &#34;risc-v&#34; category</title>
     <link href="http://LuoYZ1028.github.io/myBlog" />
     <updated>2022-10-06T11:54:43.000Z</updated>
     <category term="risc-v" />

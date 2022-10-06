@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://LuoYZ1028.github.io/myBlog</id>
-    <title>我的博客 • Posts by &#34;risc-v&#34; tag</title>
-    <link href="http://LuoYZ1028.github.io/myBlog" />
-    <updated>2022-10-06T11:54:43.000Z</updated>
-    <category term="risc-v" />
-    <category term="单周期CPU" />
-    <category term="流水线CPU" />
-    <entry>
-        <id>http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
-        <title>RISC-V流水线CPU（二）</title>
-        <link rel="alternate" href="http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-        <content type="html">&lt;h1 id=&#34;前文传送门&#34;&gt;&lt;a href=&#34;#前文传送门&#34; class=&#34;headerlink&#34; title=&#34;前文传送门&#34;&gt;&lt;/a&gt;前文传送门&lt;/h1&gt;&lt;a href=&#34;/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/&#34; title=&#34;RISC-V流水线CPU（一）&#34;&gt;第一章&lt;/a&gt;
+<rss version="2.0">
+    <channel>
+        <title>我的博客 • Posts by &#34;risc-v&#34; category</title>
+        <link>http://LuoYZ1028.github.io/myBlog</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 06 Oct 2022 19:54:43 +0800</pubDate>
+        <lastBuildDate>Thu, 06 Oct 2022 19:54:43 +0800</lastBuildDate>
+        <category>risc-v</category>
+        <category>单周期CPU</category>
+        <category>流水线CPU</category>
+        <item>
+            <guid isPermalink="true">http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/</guid>
+            <title>RISC-V流水线CPU（二）</title>
+            <link>http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU%EF%BC%88%E4%BA%8C%EF%BC%89/</link>
+            <category>risc-v</category>
+            <category>流水线CPU</category>
+            <pubDate>Thu, 06 Oct 2022 19:54:43 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;前文传送门&#34;&gt;&lt;a href=&#34;#前文传送门&#34; class=&#34;headerlink&#34; title=&#34;前文传送门&#34;&gt;&lt;/a&gt;前文传送门&lt;/h1&gt;&lt;a href=&#34;/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/&#34; title=&#34;RISC-V流水线CPU（一）&#34;&gt;第一章&lt;/a&gt;
 
 &lt;h2 id=&#34;数据冒险（续）&#34;&gt;&lt;a href=&#34;#数据冒险（续）&#34; class=&#34;headerlink&#34; title=&#34;数据冒险（续）&#34;&gt;&lt;/a&gt;数据冒险（续）&lt;/h2&gt;&lt;h3 id=&#34;load-use型&#34;&gt;&lt;a href=&#34;#load-use型&#34; class=&#34;headerlink&#34; title=&#34;load-use型&#34;&gt;&lt;/a&gt;load-use型&lt;/h3&gt;&lt;p&gt;前面三种数据冒险都能通过前递（forwarding）数据来得以解决，免除了暂停流水线的苦恼，靶特，凡事总有例外，前递并非万用药，load-use型数据冒险就难以使用前递解决，例如：&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs ASM&#34;&gt;ld x2, 0(x0)    # 从内存0地址取数放入x2&lt;br&gt;addi x2, x2, 1  # x2增1&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -29,16 +35,16 @@
 &lt;li&gt;如果真的需要跳转，那么我们目前的流水线就可能已流入两条错误的指令（分别处于IF和ID阶段），还需要考虑如何清空这两条错误指令引发的&lt;strong&gt;蝴蝶效应&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;此外，如何选择&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-        <category term="risc-v" />
-        <category term="流水线CPU" />
-        <updated>2022-10-06T11:54:43.000Z</updated>
-    </entry>
-    <entry>
-        <id>http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/</id>
-        <title>RISC-V流水线CPU（一）</title>
-        <link rel="alternate" href="http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/"/>
-        <content type="html">&lt;h1 id=&#34;写在前面&#34;&gt;&lt;a href=&#34;#写在前面&#34; class=&#34;headerlink&#34; title=&#34;写在前面&#34;&gt;&lt;/a&gt;写在前面&lt;/h1&gt;&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/paticita/article/details/119570971&#34;&gt;CSDN相应博客页&lt;/a&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/</guid>
+            <title>RISC-V流水线CPU（一）</title>
+            <link>http://luoyz1028.github.io/myBlog/2022/10/06/RISC-V%E6%B5%81%E6%B0%B4%E7%BA%BFCPU/</link>
+            <category>risc-v</category>
+            <category>流水线CPU</category>
+            <pubDate>Thu, 06 Oct 2022 10:56:19 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;写在前面&#34;&gt;&lt;a href=&#34;#写在前面&#34; class=&#34;headerlink&#34; title=&#34;写在前面&#34;&gt;&lt;/a&gt;写在前面&lt;/h1&gt;&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/paticita/article/details/119570971&#34;&gt;CSDN相应博客页&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读&lt;/p&gt;
 &lt;h1 id=&#34;内容摘要&#34;&gt;&lt;a href=&#34;#内容摘要&#34; class=&#34;headerlink&#34; title=&#34;内容摘要&#34;&gt;&lt;/a&gt;内容摘要&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;将单周期中已有的分段处理思想进一步实现，通过&lt;strong&gt;流水线寄存器&lt;/strong&gt;能够让指令延后一个周期进行传输来划分阶段&lt;/p&gt;
@@ -87,16 +93,16 @@
 &lt;hr&gt;
 &lt;section class=&#34;footnotes&#34;&gt;&lt;div class=&#34;footnote-list&#34;&gt;&lt;ol&gt;&lt;li&gt;&lt;span id=&#34;fn:1&#34; class=&#34;footnote-text&#34;&gt;&lt;span&gt;有一处纰漏：“IF&amp;#x2F;EXE”应改为“ID&amp;#x2F;EXE”
 &lt;a href=&#34;#fnref:1&#34; rev=&#34;footnote&#34; class=&#34;footnote-backref&#34;&gt; ↩&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span id=&#34;fn:2&#34; class=&#34;footnote-text&#34;&gt;&lt;span&gt;同色表示两条指令之间存在该阶段的数据冲突
-&lt;a href=&#34;#fnref:2&#34; rev=&#34;footnote&#34; class=&#34;footnote-backref&#34;&gt; ↩&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;&lt;/section&gt;</content>
-        <category term="risc-v" />
-        <category term="流水线CPU" />
-        <updated>2022-10-06T02:56:19.000Z</updated>
-    </entry>
-    <entry>
-        <id>http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</id>
-        <title>RISC-V单周期CPU</title>
-        <link rel="alternate" href="http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/"/>
-        <content type="html">&lt;h1 id=&#34;写在前面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#写在前面&#34;&gt;#&lt;/a&gt; 写在前面&lt;/h1&gt;
+&lt;a href=&#34;#fnref:2&#34; rev=&#34;footnote&#34; class=&#34;footnote-backref&#34;&gt; ↩&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;&lt;/section&gt; ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</guid>
+            <title>RISC-V单周期CPU</title>
+            <link>http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</link>
+            <category>risc-v</category>
+            <category>单周期CPU</category>
+            <pubDate>Wed, 05 Oct 2022 20:00:21 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;写在前面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#写在前面&#34;&gt;#&lt;/a&gt; 写在前面&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/paticita/article/details/119508499&#34;&gt;CSDN 相关博客页&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -113,9 +119,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-</content>
-        <category term="risc-v" />
-        <category term="单周期CPU" />
-        <updated>2022-10-05T12:00:21.000Z</updated>
-    </entry>
-</feed>
+ ]]></description>
+        </item>
+    </channel>
+</rss>
