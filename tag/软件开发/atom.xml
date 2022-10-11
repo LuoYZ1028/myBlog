@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://LuoYZ1028.github.io/myBlog</id>
+    <title>我的博客 • Posts by &#34;软件开发&#34; tag</title>
+    <link href="http://LuoYZ1028.github.io/myBlog" />
+    <updated>2022-10-08T12:42:41.000Z</updated>
+    <category term="LoongArch" />
+    <category term="软件开发" />
+    <category term="汇编器" />
+    <category term="risc-v" />
+    <category term="单周期CPU" />
+    <category term="流水线CPU" />
+    <entry>
+        <id>http://luoyz1028.github.io/myBlog/2022/10/08/LoongArch32%E4%BD%8D%E6%B1%87%E7%BC%96%E5%99%A8%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+        <title>LoongArch32位汇编器开发（一）</title>
+        <link rel="alternate" href="http://luoyz1028.github.io/myBlog/2022/10/08/LoongArch32%E4%BD%8D%E6%B1%87%E7%BC%96%E5%99%A8%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+        <content type="html">&lt;h1 id=&#34;开发流程&#34;&gt;&lt;a href=&#34;#开发流程&#34; class=&#34;headerlink&#34; title=&#34;开发流程&#34;&gt;&lt;/a&gt;开发流程&lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;&lt;a href=&#34;#写在前面&#34; class=&#34;headerlink&#34; title=&#34;写在前面&#34;&gt;&lt;/a&gt;写在前面&lt;/h2&gt;&lt;p&gt;该软件是2022年秋季课程《软件设计与实践B》中，我所在小组决定的课题“基于LoongArch32位CPU设计”，其下的一个子任务。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基础目标是拥有一个可视化界面的“翻译软件”，能够按顺序翻译汇编语言，支持所有32位基础整数指令集即可，同时要分别支持指令序列和数据变量的分别翻译，最好要能够使用文件读入和写出&lt;/li&gt;
+&lt;li&gt;若能实现更多功能，会视情况得到加分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;计划技术路线&#34;&gt;&lt;a href=&#34;#计划技术路线&#34; class=&#34;headerlink&#34; title=&#34;计划技术路线&#34;&gt;&lt;/a&gt;计划技术路线&lt;/h2&gt;&lt;p&gt;采用Qt作为前端开发平台，Qt基于C++，用偏向系统的语言进行软件开发不至于到时候答辩被老师低看一眼……&lt;br&gt;Qt能够提供一个设计师面板，在这个界面中，可以通过拖拽可视化的窗口控件，来直接生成界面，也正是这一功能，让我的开发过程中摆脱了大量篇幅（1000+行代码）的空间、布局定义和初始化，集中精力专注于后端逻辑。&lt;/p&gt;
+&lt;p&gt;C++和C最大的不同，就是前者面向对象，后者面向过程，且前者能提供大量的字符串处理函数，包括QString数据类型，这都能大幅降低开发难度，&lt;br&gt;因为Qt的可视化控件，比如一个QTextBrowser想要显示一些内容，传入的参数类型就是QString类型，所以我设想了一下，觉得如果整体采用QString数据类型存储指令序列，应该能更有效地达成目的。&lt;/p&gt;
+&lt;h2 id=&#34;工期安排&#34;&gt;&lt;a href=&#34;#工期安排&#34; class=&#34;headerlink&#34; title=&#34;工期安排&#34;&gt;&lt;/a&gt;工期安排&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;周数&lt;/th&gt;
+&lt;th&gt;工作安排&lt;/th&gt;
+&lt;th&gt;是否完成&lt;/th&gt;
+&lt;th&gt;备注&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;完成基本翻译功能和最基本的代码输入窗口+结果输出窗口（用于检查翻译是否正确）&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;完成代码段和数据段分治处理，能完成文件读取和写入，将结果输出窗口废弃，改为处理信息输出窗口&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;进行界面美化，将代码翻译结果显示在新的窗口中，增加代码检错机制（不能要求用户代码写得尽善尽美），同时增加错误提示机制&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;增加Debug功能，同时增加语法高亮（能高亮关键词，对用户写代码时起到一定的提示作用），将工具栏填入功能按钮，添加一系列Icon美化图标&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;完善错误检测机制（大部分能遇见的错误类型都能予以提醒，且发现错误时高亮颜色改变，自动跳转到错误行进行高亮），增加多行注释的支持，增加两个伪指令li.w和la，同时支持EQU宏定义&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;增加快捷键，增加弹出式提示窗口，将代码输入窗口改为修改敏感，即一旦修改就认为当前内容尚未汇编，若此时用户跳转到结果视察或debug窗口，将会强制返回代码编辑窗口并弹出窗口进行提示；增加代码鲁棒性，将绝大部分类中关键变量设为私有成员，添加对应接口函数&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;支持宏展开macro的定义和使用，添加相应语法高亮，对代码编辑区增加行号支持，更方便用户使用，添加版权信息，添加用户文档&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+</content>
+        <category term="LoongArch" />
+        <category term="软件开发" />
+        <category term="汇编器" />
+        <updated>2022-10-08T12:42:41.000Z</updated>
+    </entry>
+</feed>

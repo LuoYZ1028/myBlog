@@ -4,6 +4,9 @@
     <title>我的博客 • Posts by &#34;cpu&#34; category</title>
     <link href="http://LuoYZ1028.github.io/myBlog" />
     <updated>2022-10-06T11:54:43.000Z</updated>
+    <category term="LoongArch" />
+    <category term="软件开发" />
+    <category term="汇编器" />
     <category term="risc-v" />
     <category term="单周期CPU" />
     <category term="流水线CPU" />
@@ -133,20 +136,17 @@
         <id>http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/</id>
         <title>RISC-V单周期CPU</title>
         <link rel="alternate" href="http://luoyz1028.github.io/myBlog/2022/10/05/RISC-V%E5%8D%95%E5%91%A8%E6%9C%9FCPU/"/>
-        <content type="html">&lt;h1 id=&#34;写在前面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#写在前面&#34;&gt;#&lt;/a&gt; 写在前面&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/paticita/article/details/119508499&#34;&gt;CSDN 相关博客页&lt;/a&gt;&lt;/p&gt;
+        <content type="html">&lt;h1 id=&#34;写在前面&#34;&gt;&lt;a href=&#34;#写在前面&#34; class=&#34;headerlink&#34; title=&#34;写在前面&#34;&gt;&lt;/a&gt;写在前面&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/paticita/article/details/119508499&#34;&gt;CSDN相关博客页&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;里面详细说明了这个项目的来龙去脉，同时对项目的关键点进行了简单的描述，建议结合项目代码进行阅读&lt;/p&gt;
-&lt;h1 id=&#34;内容摘要&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#内容摘要&#34;&gt;#&lt;/a&gt; 内容摘要&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;使用 Verilog 语言，配合 Vivado 软件进行硬件设计，并最终能生成比特流导入板子进行实际效果模拟&lt;/li&gt;
-&lt;li&gt;指令集架构基于 risc-v，32 位基础整数指令，没有特权指令或是内核态，也不存在中断操作&lt;/li&gt;
-&lt;li&gt;该部分是单周期模型，所有指令都限定在一个周期内进行 5 个阶段：取指&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\to&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 译码&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\to&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 执行&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\to&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 访存&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;→&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\to&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;→&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 写回，因此整体时延超大，主频难以提升
-&lt;ul&gt;
+&lt;h1 id=&#34;内容摘要&#34;&gt;&lt;a href=&#34;#内容摘要&#34; class=&#34;headerlink&#34; title=&#34;内容摘要&#34;&gt;&lt;/a&gt;内容摘要&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;使用Verilog语言，配合Vivado软件进行硬件设计，并最终能生成比特流导入板子进行实际效果模拟&lt;/li&gt;
+&lt;li&gt;指令集架构基于risc-v，32位基础整数指令，没有特权指令或是内核态，也不存在中断操作&lt;/li&gt;
+&lt;li&gt;该部分是单周期模型，所有指令都限定在一个周期内进行5个阶段：取指$\to$译码$\to$执行$\to$访存$\to$写回，因此整体时延超大，主频难以提升&lt;ul&gt;
 &lt;li&gt;但这并不意味单周期模型就是废物，相反，单周期模型能够证明我们设计的合理性&lt;/li&gt;
-&lt;li&gt;此外单周期模型提供 5 段流水的思想，能够大幅度减少流水线 CPU 的设计难度&lt;/li&gt;
-&lt;li&gt;忽视单周期模型的设计很可能会导致流水线的 Bug 多如牛毛，不过单周期确实没有多大的实际应用意义&lt;/li&gt;
+&lt;li&gt;此外单周期模型提供5段流水的思想，能够大幅度减少流水线CPU的设计难度&lt;/li&gt;
+&lt;li&gt;忽视单周期模型的设计很可能会导致流水线的Bug多如牛毛，不过单周期确实没有多大的实际应用意义&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

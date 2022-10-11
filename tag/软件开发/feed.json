@@ -1,0 +1,20 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "我的博客 • All posts by \"软件开发\" tag",
+    "description": "",
+    "home_page_url": "http://LuoYZ1028.github.io/myBlog",
+    "items": [
+        {
+            "id": "http://luoyz1028.github.io/myBlog/2022/10/08/LoongArch32%E4%BD%8D%E6%B1%87%E7%BC%96%E5%99%A8%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/",
+            "url": "http://luoyz1028.github.io/myBlog/2022/10/08/LoongArch32%E4%BD%8D%E6%B1%87%E7%BC%96%E5%99%A8%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/",
+            "title": "LoongArch32位汇编器开发（一）",
+            "date_published": "2022-10-08T12:42:41.000Z",
+            "content_html": "<h1 id=\"开发流程\"><a href=\"#开发流程\" class=\"headerlink\" title=\"开发流程\"></a>开发流程</h1><h2 id=\"写在前面\"><a href=\"#写在前面\" class=\"headerlink\" title=\"写在前面\"></a>写在前面</h2><p>该软件是2022年秋季课程《软件设计与实践B》中，我所在小组决定的课题“基于LoongArch32位CPU设计”，其下的一个子任务。</p>\n<ul>\n<li>基础目标是拥有一个可视化界面的“翻译软件”，能够按顺序翻译汇编语言，支持所有32位基础整数指令集即可，同时要分别支持指令序列和数据变量的分别翻译，最好要能够使用文件读入和写出</li>\n<li>若能实现更多功能，会视情况得到加分</li>\n</ul>\n<h2 id=\"计划技术路线\"><a href=\"#计划技术路线\" class=\"headerlink\" title=\"计划技术路线\"></a>计划技术路线</h2><p>采用Qt作为前端开发平台，Qt基于C++，用偏向系统的语言进行软件开发不至于到时候答辩被老师低看一眼……<br>Qt能够提供一个设计师面板，在这个界面中，可以通过拖拽可视化的窗口控件，来直接生成界面，也正是这一功能，让我的开发过程中摆脱了大量篇幅（1000+行代码）的空间、布局定义和初始化，集中精力专注于后端逻辑。</p>\n<p>C++和C最大的不同，就是前者面向对象，后者面向过程，且前者能提供大量的字符串处理函数，包括QString数据类型，这都能大幅降低开发难度，<br>因为Qt的可视化控件，比如一个QTextBrowser想要显示一些内容，传入的参数类型就是QString类型，所以我设想了一下，觉得如果整体采用QString数据类型存储指令序列，应该能更有效地达成目的。</p>\n<h2 id=\"工期安排\"><a href=\"#工期安排\" class=\"headerlink\" title=\"工期安排\"></a>工期安排</h2><table>\n<thead>\n<tr>\n<th>周数</th>\n<th>工作安排</th>\n<th>是否完成</th>\n<th>备注</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>1</td>\n<td>完成基本翻译功能和最基本的代码输入窗口+结果输出窗口（用于检查翻译是否正确）</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>2</td>\n<td>完成代码段和数据段分治处理，能完成文件读取和写入，将结果输出窗口废弃，改为处理信息输出窗口</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>3</td>\n<td>进行界面美化，将代码翻译结果显示在新的窗口中，增加代码检错机制（不能要求用户代码写得尽善尽美），同时增加错误提示机制</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>4</td>\n<td>增加Debug功能，同时增加语法高亮（能高亮关键词，对用户写代码时起到一定的提示作用），将工具栏填入功能按钮，添加一系列Icon美化图标</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>5</td>\n<td>完善错误检测机制（大部分能遇见的错误类型都能予以提醒，且发现错误时高亮颜色改变，自动跳转到错误行进行高亮），增加多行注释的支持，增加两个伪指令li.w和la，同时支持EQU宏定义</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>6</td>\n<td>增加快捷键，增加弹出式提示窗口，将代码输入窗口改为修改敏感，即一旦修改就认为当前内容尚未汇编，若此时用户跳转到结果视察或debug窗口，将会强制返回代码编辑窗口并弹出窗口进行提示；增加代码鲁棒性，将绝大部分类中关键变量设为私有成员，添加对应接口函数</td>\n<td>yes</td>\n<td></td>\n</tr>\n<tr>\n<td>7</td>\n<td>支持宏展开macro的定义和使用，添加相应语法高亮，对代码编辑区增加行号支持，更方便用户使用，添加版权信息，添加用户文档</td>\n<td>yes</td>\n<td></td>\n</tr>\n</tbody></table>\n",
+            "tags": [
+                "LoongArch",
+                "软件开发",
+                "汇编器"
+            ]
+        }
+    ]
+}
